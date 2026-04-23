@@ -1,0 +1,127 @@
+# Template sanity — structural checks that catch regressions.
+#
+# This runs on every push and PR to the template itself. It does NOT
+# simulate the wizard end-to-end (that would require Claude Code in CI).
+# Instead, it catches the failure modes that would silently break the
+# wizard: broken doctor.sh, malformed skill frontmatter, missing files
+# referenced by CLAUDE.md, wrong gitignore patterns.
+#
+# A full wizard-dry-run (stamp template → run wizard → verify populated
+# brain) is tracked for v0.2 once a Claude Code CI image exists.
+
+name: sanity
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: doctor.sh exits clean
+        run: |
+          set -e
+          git config --global user.name "CI"
+          git config --global user.email "ci@example.com"
+          # doctor.sh expects an inbox; create .gitkeep if missing
+          [ -d inbox ] || mkdir -p inbox
+          [ -f inbox/.gitkeep ] || touch inbox/.gitkeep
+          sh scripts/doctor.sh
+
+      - name: All SKILL.md files have required frontmatter
+        run: |
+          set -e
+          missing=0
+          for f in .claude/skills/*/SKILL.md; do
+            if ! grep -q '^name: ' "$f"; then echo "MISSING name: $f"; missing=$((missing+1)); fi
+            if ! grep -q '^description: ' "$f"; then echo "MISSING description: $f"; missing=$((missing+1)); fi
+            if ! grep -q '^allowed-tools: ' "$f"; then echo "MISSING allowed-tools: $f"; missing=$((missing+1)); fi
+          done
+          if [ "$missing" -gt 0 ]; then
+            echo "FAIL: $missing skill frontmatter fields missing"
+            exit 1
+          fi
+          echo "OK: all SKILL.md files have required frontmatter"
+
+      - name: Files referenced by CLAUDE.md wizard exist on disk
+        run: |
+          set -e
+          # Wizard step "Seeding" lists files the wizard WRITES.
+          # These are targets, not required-at-template-time. But the skeleton files
+          # that the template SHIPS with must exist:
+          required="CLAUDE.md README.md LICENSE log.md .gitignore \
+                    scripts/doctor.sh \
+                    .github/workflows/publish-brain.yml \
+                    memory/MEMORY.md \
+                    journal/NOW.md journal/TODO.md journal/DONE.md journal/BACKLOG.md \
+                    wiki/index.md wiki/concepts/index.md wiki/people/index.md \
+                    decisions/index.md \
+                    rules/wiki-conventions.md rules/decisions-format.md rules/inbox-triage.md"
+          missing=0
+          for f in $required; do
+            if [ ! -f "$f" ]; then
+              echo "MISSING: $f"
+              missing=$((missing+1))
+            fi
+          done
+          if [ "$missing" -gt 0 ]; then
+            echo "FAIL: $missing required files missing"
+            exit 1
+          fi
+          echo "OK: all required skeleton files present"
+
+      - name: .gitignore protects private areas
+        run: |
+          set -e
+          for pattern in 'inbox/\*\*' 'raw/\*\*' 'archive/\*\*'; do
+            if ! grep -qE "^$pattern" .gitignore; then
+              echo "FAIL: .gitignore missing pattern: $pattern"
+              exit 1
+            fi
+          done
+          echo "OK: .gitignore protects inbox/, raw/, archive/"
+
+      - name: publish-brain.yml ships disabled by default
+        run: |
+          set -e
+          # The `on:` trigger must be commented out so Pages stays private
+          # until the user explicitly enables it
+          if grep -E '^on:' .github/workflows/publish-brain.yml | grep -v '^#'; then
+            echo "FAIL: publish-brain.yml has an active 'on:' trigger"
+            echo "It must ship with the trigger commented out (private-by-default)"
+            exit 1
+          fi
+          echo "OK: publish-brain.yml ships disabled"
+
+      - name: Rules files have H1 heading
+        run: |
+          set -e
+          for f in rules/*.md; do
+            if ! head -1 "$f" | grep -q '^# '; then
+              echo "FAIL: $f missing H1 heading on line 1"
+              exit 1
+            fi
+          done
+          echo "OK: all rules/*.md have H1 headings"
+
+      - name: No accidental private content in committed files
+        run: |
+          set -e
+          # These terms would indicate the template was contaminated with
+          # Agam's source-brain content during extraction
+          forbidden="AIonOS|UniWeave|IntelliPulse|IntelliRAG|Arjun"
+          if grep -rliE "$forbidden" \
+               --exclude-dir=.git \
+               --exclude-dir=.github \
+               --exclude=CHANGELOG.md \
+               . 2>/dev/null; then
+            echo "FAIL: committed files contain private terms"
+            exit 1
+          fi
+          echo "OK: no private-content leaks in committed files"

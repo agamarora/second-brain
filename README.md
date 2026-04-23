@@ -128,7 +128,7 @@ From day one, type `/orient` to see this week's focus. Say "capture this" during
 - **Not a replacement for Notion / Obsidian / Reflect.** Open this brain in Obsidian for graph view — the vault format is plain markdown, nothing to import. But the write path and skills are Claude Code-native.
 - **Not a hosted SaaS.** No account, no cloud billing, no trust boundary between your notes and someone else's AI. You run Claude Code. You own the repo. The brain is yours end-to-end.
 - **Not a RAG system.** No vector DB, no chunking, no retrieval. The brain is always-loaded markdown that an LLM reads directly. At personal scale (hundreds to low-thousands of pages), grep + read is enough.
-- **Not fully-featured in v0.1.** `/query` exists — ask your brain questions with grounded citations. `/lint` (orphan/stale/contradiction detection) lands in v0.2. The write path is solid; the maintenance-side is still landing. See [CHANGELOG.md](CHANGELOG.md).
+- **Not a magic oracle.** `/query` returns what your ingested sources support, with citations. If you haven't ingested it, the brain doesn't know. Grep + read is the substrate; synthesis is honest summary, not fabrication. See [CHANGELOG.md](CHANGELOG.md) for what's in v0.1 vs what's coming.
 - **Not auto-syncing across machines.** It is a git repo. You push, you pull. Multi-device = your git workflow.
 
 ---

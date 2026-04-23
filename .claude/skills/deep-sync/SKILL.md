@@ -31,11 +31,15 @@ If drift list is non-empty and ≤3 pages → enrich each one inline before fini
 
 If drift list is >3 pages → enrich the top 2 by unabsorbed count. Log the rest for next session.
 
-### 3. Wiki snapshot
+### 3. Lint the brain
+
+Call `/lint` (report-only, no `--fix`). Include the findings summary in the retro note (step 4). High-value findings — broken links, contradictions — should surface into next week's tracks rather than being silently filed.
+
+### 4. Wiki snapshot
 
 Call `/publish-context` to export a dated snapshot of `wiki/` + `journal/NOW.md` + `decisions/` to `archive/context-export/<YYYY-MM-DD>/` for cross-session portability.
 
-### 4. Retrospective note
+### 5. Retrospective note
 
 Append to `journal/retro-<YYYY-ww>.md` (ISO week number):
 
@@ -51,6 +55,9 @@ Append to `journal/retro-<YYYY-ww>.md` (ISO week number):
 ## Drift detected
 <list from step 2>
 
+## Lint findings
+<summary from step 3 — orphans, broken links, contradictions>
+
 ## Pages enriched
 <list>
 
@@ -58,16 +65,17 @@ Append to `journal/retro-<YYYY-ww>.md` (ISO week number):
 <1-3 items>
 ```
 
-### 5. Append to log.md
+### 6. Append to log.md
 
 ```
 ## [YYYY-MM-DD] deep-sync
 - Drift pages: N
+- Lint findings: N (O orphans, B broken links, S stale, C contradictions)
 - Snapshot: archive/context-export/<date>/
 - Retro: journal/retro-<YYYY-ww>.md
 ```
 
-### 6. Commit and push
+### 7. Commit and push
 
 ```bash
 git add -A

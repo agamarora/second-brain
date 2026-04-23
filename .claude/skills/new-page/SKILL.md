@@ -81,7 +81,17 @@ Append a row:
 | [[<Name>]] | <YYYY-MM-DD> | stub |
 ```
 
-### 5. Log
+### 5. Register in global wiki/index.md catalog
+
+Read `wiki/index.md`. If it has a `## Page catalog` section, append:
+
+```
+| [[<slug>]] | <kind> | <YYYY-MM-DD> | <YYYY-MM-DD> | (stub — enrich via /absorb or /ingest) |
+```
+
+If the section doesn't exist, create it at the end of `wiki/index.md` per the format in `/ingest` step 6. Decisions go under `decisions/index.md` instead — they have their own catalog.
+
+### 6. Log
 
 Append to `log.md`:
 
@@ -89,6 +99,6 @@ Append to `log.md`:
 ## [YYYY-MM-DD] new-page: <path> (<kind>)
 ```
 
-### 6. Return
+### 7. Return
 
 Return the created path.

@@ -154,8 +154,11 @@ Type `/skill-name`. Claude Code also invokes these when you describe what you wa
 | Skill | When |
 |---|---|
 | `/orient` | Session start |
+| `/help` | List all available skills |
+| `/capture <text>` | Drop a thought into `inbox/` — no triage |
 | `/ingest <path>` | New source arrived — inbox note, PDF in raw/, etc. |
 | `/query "<question>"` | Ask the brain a question. Synthesized answer with citations. |
+| `/lint` | Health check — orphans, broken links, stale claims, contradictions |
 | `/extract-entities` | Subskill of `/ingest`; rarely called directly |
 | `/absorb <entity> <source>` | Subskill of `/ingest`; rarely called directly |
 | `/new-page <kind> <name>` | User says "create a page for X" |
@@ -201,8 +204,9 @@ scripts/
   publish-brain.yml       ← GitHub Pages export (disabled by default)
 
 .claude/skills/
-  orient/, ingest/, query/, extract-entities/, absorb/,
-  new-page/, quick-sync/, deep-sync/, publish-context/
+  orient/, help/, capture/, ingest/, query/, lint/,
+  extract-entities/, absorb/, new-page/,
+  quick-sync/, deep-sync/, publish-context/
 
 rules/
   wiki-conventions.md     ← page format, cross-linking, enrichment
