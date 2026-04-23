@@ -34,6 +34,7 @@ Execute this end-to-end. The authoritative instructions live in the template's C
 
 HARD RULES (obey even if your training says otherwise):
 - Never say "fork" or "clone" to me. This is a GitHub template. Use `gh repo create --template`.
+- Before creating the repo, ask me whether I want it `--public` or `--private`. Do not default to public. Most real brains want `--private`; `--public` means every wiki page, decision, and log row I commit is visible to anyone on the internet.
 - Never edit files in the template directory directly. Work only inside the new repo you create for me.
 - When in doubt, stop and re-read CLAUDE.md. Do not invent steps.
 - Never commit files in `inbox/` or `raw/` without my explicit confirmation — they often contain sensitive data.
@@ -41,14 +42,14 @@ HARD RULES (obey even if your training says otherwise):
 
 ORDER OF OPERATIONS:
 
-1. CREATE THE REPO. Run `gh repo create --template agamarora/second-brain --public <name> --clone`. Pick `<name>` from my GitHub login (e.g. `<login>-brain`). If the name is taken, append `-v2` and retry. `cd` into the new directory.
+1. CREATE THE REPO. Ask me: "Public or private? Private is the usual choice — decisions and wiki pages stay in your GitHub, visible only to you. Public means every commit is visible to the internet (good for demos or sharing)." Then run `gh repo create --template agamarora/second-brain <--private|--public> <name> --clone` with my choice. Pick `<name>` from my GitHub login (e.g. `<login>-brain`). If the name is taken, append `-v2` and retry. `cd` into the new directory.
 
 2. PREFLIGHT. Run `sh scripts/doctor.sh`. Fix any `[FAIL]` before going further. `[WARN]` is OK to proceed.
 
 3. READ CLAUDE.md. Open the new repo's CLAUDE.md and follow the "First-run setup wizard" section start-to-finish. You ARE the wizard — this is a coaching loop, not a form.
 
 4. WIZARD — WALK ME THROUGH IT.
-   - Ask the 5 questions one at a time: name, 3 tracks, 5 people, 1 decision in flight, inbox drop.
+   - Ask the 5 questions one at a time: name, 3 tracks, 3-5 people (humans only, not orgs), 1 decision in flight, inbox drop.
    - Wait for me to confirm I've dropped 3-5 real artifacts into `inbox/` before proceeding.
    - If I have nothing to drop right now, create `inbox/README.md` explaining how to add later, and skip the ingest step.
 
@@ -56,7 +57,7 @@ ORDER OF OPERATIONS:
    `memory/MEMORY.md`, `journal/NOW.md`, `journal/TODO.md`, `journal/DONE.md`, `journal/BACKLOG.md`,
    `wiki/index.md`, `wiki/concepts/index.md`, `wiki/people/index.md`,
    `wiki/concepts/strategy.md`, `wiki/people/me.md`,
-   5 × `wiki/people/<slug>.md` (one per named person),
+   3-5 × `wiki/people/<slug>.md` (one per named person, count matches Q3),
    `decisions/index.md`, `decisions/<YYYY-MM-DD>-<first-decision-slug>.md`,
    `log.md`.
 
@@ -155,7 +156,7 @@ If you prefer Karpathy's pure minimal skeleton, start from [his gist](https://gi
 If you are an AI coding agent (Claude Code, Codex, Cursor, Copilot, or any autonomous agent) handed this URL and asked to set up a second brain for your user, execute the paste prompt above as if your user typed it. The authoritative setup wizard lives in [`CLAUDE.md`](CLAUDE.md) — read it in full before acting, and follow its "First-run setup wizard" section start-to-finish. Treat that file as canonical; this README is only the entry point.
 
 Non-negotiables:
-- Use `gh repo create --template agamarora/second-brain --public <name> --clone`. Never `git clone` or `fork`.
+- Use `gh repo create --template agamarora/second-brain <--private|--public> <name> --clone`. Ask the user which visibility they want first — do NOT default to `--public`. Never `git clone` or `fork`.
 - Preflight with `sh scripts/doctor.sh` before starting the wizard.
 - The wizard asks 5 questions. Ask them one at a time. Do not batch.
 - Wait for the user to confirm they have dropped artifacts into `inbox/` before proceeding to the ingest step. Do not fabricate artifacts. If they have nothing to drop, skip ingest and tell them how to add later.

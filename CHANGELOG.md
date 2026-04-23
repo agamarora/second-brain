@@ -7,7 +7,7 @@ All notable changes to this template. Dates in ISO format. Semantic version.
 Initial public release.
 
 ### Added
-- **Setup wizard** — 5-question CLAUDE.md wizard seeds a working brain in under 10 minutes (name, 3 tracks, 5 people, 1 open decision, inbox drop)
+- **Setup wizard** — 5-question CLAUDE.md wizard seeds a working brain in under 10 minutes (name, 3 tracks, 3-5 people, 1 open decision, inbox drop)
 - **12 skills** in `.claude/skills/`: orient, help, capture, ingest, query, lint, extract-entities, absorb, new-page, quick-sync, deep-sync, publish-context
 - **3 rules files** in `rules/`: wiki-conventions, decisions-format, inbox-triage
 - **3-layer provenance** mechanically enforced by `/ingest` — the skill fails if forward frontmatter, inline markers, reverse tables, or the global catalog row is missing

@@ -9,7 +9,11 @@ The canonical flow uses Claude Code, which reads `CLAUDE.md` and runs the wizard
 Use GitHub's "Use this template" button on [github.com/agamarora/second-brain](https://github.com/agamarora/second-brain), or:
 
 ```bash
-gh repo create --template agamarora/second-brain --public <your-name>-brain --clone
+# Pick --private or --public before running. Most brains want --private —
+# it keeps your wiki pages + decisions inside your GitHub account, visible
+# only to you. Use --public only if you want everything you commit to be
+# publicly readable on the internet.
+gh repo create --template agamarora/second-brain --private <your-name>-brain --clone
 cd <your-name>-brain
 ```
 
@@ -41,12 +45,24 @@ Answer the 5 questions:
 
 ## 4. Save seeded files
 
-Your AI will output contents for these. Save each manually:
+Your AI will output contents for these. The template already ships with skeleton versions of most — **replace the placeholder content, don't rewrite the structure** (especially `wiki/index.md` which has an auto-maintained `## Page catalog` section).
 
-- `memory/MEMORY.md`, `journal/NOW.md`
-- `wiki/concepts/strategy.md`, `wiki/people/me.md`
-- One `wiki/people/<name>.md` per person from Q3
+**Replace placeholder content:**
+
+- `memory/MEMORY.md`, `journal/NOW.md`, `journal/TODO.md`, `journal/DONE.md`, `journal/BACKLOG.md`
+
+**Create fresh (template doesn't ship these):**
+
+- `wiki/concepts/strategy.md`
+- `wiki/people/me.md`
+- One `wiki/people/<name>.md` per person from Q3 (3-5 files)
 - `decisions/<YYYY-MM-DD>-<first-decision-slug>.md`
+
+**Leave alone — already ship with required structure:**
+
+- `wiki/index.md` (has `## Page catalog` section that `/ingest` maintains)
+- `wiki/concepts/index.md`, `wiki/people/index.md`, `decisions/index.md` (table headers)
+- `log.md` (append a `## [YYYY-MM-DD] wizard run` row, don't rewrite)
 
 ## 5. Ingest each inbox file
 

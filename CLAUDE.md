@@ -96,7 +96,7 @@ The template ships with skeleton files that already have structure (table header
 
 After seeding files, call `/ingest` on every file in `inbox/` (one at a time).
 
-- Each call detects entities (including the 5 people stubs already created)
+- Each call detects entities (including the 3-5 people stubs already created)
 - Writes `[Source: [[...]]]` markers into touched pages
 - Appends to `## Sources that shaped this page` tables
 - When absorbing into `wiki/people/me.md`, writes a short first-person summary paragraph synthesizing what the sources reveal about the user (see rules in `.claude/skills/absorb/SKILL.md`)
