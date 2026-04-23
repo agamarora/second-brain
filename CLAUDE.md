@@ -46,9 +46,9 @@ Capture 2-4 track lines.
 
 ### Q3 — Five people who matter
 
-Ask: "Name 5 people showing up most in your work this month. Full names, ideally with a one-word role or relationship. Examples: 'Maya — cofounder', 'Ravi — design lead', 'Priya — main customer'."
+Ask: "Name 3-5 humans who show up most in your work this month. **People only** — not companies, partners, products, or concepts (those get their own pages later when /ingest processes your artifacts). Full names, one-word role or relationship. Examples: 'Maya Patel — cofounder', 'Ravi Kumar — design lead', 'Priya Sharma — main customer'."
 
-Capture 5 lines. Fewer than 5 is OK if user insists.
+Capture 3-5 lines. **Do NOT fabricate names** to reach 5. If the user gives 3, seed 3 stubs. If they name a company or partner, politely redirect: "That's an organization — I'll create a page for it when /ingest encounters it. Give me a human name instead."
 
 ### Q4 — One decision in flight
 
@@ -155,6 +155,7 @@ Type `/skill-name`. Claude Code also invokes these when you describe what you wa
 |---|---|
 | `/orient` | Session start |
 | `/ingest <path>` | New source arrived — inbox note, PDF in raw/, etc. |
+| `/query "<question>"` | Ask the brain a question. Synthesized answer with citations. |
 | `/extract-entities` | Subskill of `/ingest`; rarely called directly |
 | `/absorb <entity> <source>` | Subskill of `/ingest`; rarely called directly |
 | `/new-page <kind> <name>` | User says "create a page for X" |
@@ -200,7 +201,7 @@ scripts/
   publish-brain.yml       ← GitHub Pages export (disabled by default)
 
 .claude/skills/
-  orient/, ingest/, extract-entities/, absorb/,
+  orient/, ingest/, query/, extract-entities/, absorb/,
   new-page/, quick-sync/, deep-sync/, publish-context/
 
 rules/

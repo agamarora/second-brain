@@ -2,7 +2,7 @@
 
 > *"A second brain is a second brain — it's a filing, compiling and synthesising system that augments decision making. Why is it limited to a role or a job title?"*
 
-Your second brain lives in git. Paste one prompt, get started in under 5 minutes. Fully populated in under 10.
+Your second brain lives in git. Paste one prompt. Populated in under 10 minutes.
 
 Plain markdown. No app. No SaaS. No lock-in. Claude Code is the runtime; Obsidian is an optional reader; git is the sync. The brain compounds — every new source connects to what came before via 3-layer provenance, every decision chains to what it builds on, every wiki page enriches instead of overwriting.
 
@@ -107,6 +107,32 @@ From day one, type `/orient` to see this week's focus. Say "capture this" during
 **Why compounding?** Because information without connection is just noise. This template enforces 3-layer provenance on every ingest (see [`rules/wiki-conventions.md`](rules/wiki-conventions.md)), a `builds_on` chain on every decision (see [`rules/decisions-format.md`](rules/decisions-format.md)), and a chronological log that makes every past move findable with `grep`. Six months in, your brain is worth more than the sum of what you put in.
 
 **Why Claude Code as the runtime?** Because the AI that writes your brain should run *inside* the brain. Skills live in `.claude/skills/`. The schema lives in `CLAUDE.md`. No round-trip to a hosted service, no cloud billing, no trust boundary between your notes and whoever runs the AI. You own it end-to-end.
+
+---
+
+## What this is NOT
+
+- **Not a replacement for Notion / Obsidian / Reflect.** Open this brain in Obsidian for graph view — the vault format is plain markdown, nothing to import. But the write path and skills are Claude Code-native.
+- **Not a hosted SaaS.** No account, no cloud billing, no trust boundary between your notes and someone else's AI. You run Claude Code. You own the repo. The brain is yours end-to-end.
+- **Not a RAG system.** No vector DB, no chunking, no retrieval. The brain is always-loaded markdown that an LLM reads directly. At personal scale (hundreds to low-thousands of pages), grep + read is enough.
+- **Not fully-featured in v0.1.** `/query` exists — ask your brain questions with grounded citations. `/lint` (orphan/stale/contradiction detection) lands in v0.2. The write path is solid; the maintenance-side is still landing. See [CHANGELOG.md](CHANGELOG.md).
+- **Not auto-syncing across machines.** It is a git repo. You push, you pull. Multi-device = your git workflow.
+
+---
+
+## Lineage
+
+This template implements a pattern [Andrej Karpathy described](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) in April 2026 — a three-layer architecture (raw sources, LLM-compiled wiki, schema file) with an LLM as the maintainer. If you want the minimal reference implementation, read his gist.
+
+**What this template adds beyond Karpathy's skeleton:**
+- A 5-question setup wizard that seeds your brain from your own artifacts on first run
+- **Decisions as first-class citizens** with `builds_on` chains, not notes or tasks — see [`rules/decisions-format.md`](rules/decisions-format.md)
+- **Mechanically-enforced 3-layer provenance** — `/ingest` fails if forward, inline, or reverse links are missing
+- **Private by default** — `inbox/`, `raw/`, `archive/` gitignored; no accidental public commits
+- **Publish-to-GitHub-Pages** — one-line toggle to share a read-only snapshot at `<user>.github.io/<repo>/`
+- **`log.md` as append-only spine** — every ingest, decision, and sync writes a dated row; `grep` tells you six-month-old history
+
+If you prefer Karpathy's pure minimal skeleton, start from [his gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f). If you want a wizard + decisions + publishable surface, use this template.
 
 ---
 

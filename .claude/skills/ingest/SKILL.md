@@ -36,7 +36,11 @@ Pass source content. Receive `[{entity, kind, existing_page}, ...]`. Kinds: `per
 
 For each entity:
 - If `existing_page != null` → call `/absorb <entity> <source>`
-- If `existing_page == null` → ask user: `"Entity '<name>' (kind: <kind>) has no page. Create one? [y/n]"`. On yes, call `/new-page <kind> <slug>` then `/absorb`.
+- If `existing_page == null` → **auto-create**: call `/new-page <kind> <slug>`, then `/absorb`. Do NOT prompt per entity — the source explicitly mentions this entity, that is sufficient signal to create a stub. Pages are cheap; orphans are easy to clean up later with `/lint` (v0.2).
+
+**Interactive mode** (opt-in): if the user invoked `/ingest --ask <path>`, prompt `"Entity '<name>' (kind: <kind>) has no page. Create one? [y/n]"` per new entity. Default is auto-create.
+
+**Low-confidence guard**: if `extract-entities` returned an entity with kind=`concept` AND the surrounding context gives < 10 words of signal about it, skip creation. Orphan stubs dilute the brain.
 
 ### 4. Forward provenance (source frontmatter)
 

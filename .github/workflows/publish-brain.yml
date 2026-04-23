@@ -50,6 +50,12 @@ jobs:
               rm "$f"
             fi
           done
+          # Best-effort wiki-link rewrite: [[name]] → [name](name.html)
+          # Limitation: assumes same-folder targets. Cross-folder links break.
+          # v0.2 will add path resolution. For graph navigation use Obsidian on the source.
+          find docs -type f -name '*.md' -print0 | while IFS= read -r -d '' f; do
+            sed -i -E 's/\[\[([^]|]+)\]\]/[\1](\1.html)/g' "$f"
+          done
           # Minimal Jekyll config — default minima theme, no plugins
           cat > docs/_config.yml <<EOF
           title: Second Brain

@@ -20,6 +20,9 @@ Thumbs.db
 .obsidian/workspace*.json
 .obsidian/cache
 
+# Claude Code local settings (per-user, not part of the template)
+.claude/settings.local.json
+
 # Build output
 docs/
 .jekyll-cache/

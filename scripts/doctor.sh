@@ -35,6 +35,11 @@ check "gh CLI installed" \
       "gh --version" \
       "install from https://cli.github.com, then: gh auth login"
 
+# 1b. gh authenticated — required for `gh repo create --template`
+check "gh authenticated" \
+      "gh auth status" \
+      "run: gh auth login"
+
 # 2. git configured
 check "git user.name set" \
       "test -n \"\$(git config --get user.name)\"" \

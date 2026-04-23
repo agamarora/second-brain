@@ -29,6 +29,9 @@ Use `/ingest`'s entity path lookup:
 | competitor | `wiki/competitors/<Name>.md` |
 | concept | `wiki/concepts/<slug>.md` (lowercase hyphen) |
 | organization | `wiki/org/<Name>.md` |
+| decision | `decisions/<YYYY-MM-DD>-<slug>.md` (see below for frontmatter template) |
+
+**Decision kind** uses the decisions-format.md template, not the entity template. See `rules/decisions-format.md` for the full frontmatter + body structure. When `/new-page` is called with `kind=decision`, skip step 3 of this skill and use the decisions template instead.
 
 ### 2. Check it doesn't already exist
 
