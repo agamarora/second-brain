@@ -10,7 +10,7 @@ Plain markdown. No app. No SaaS. No lock-in. Claude Code is the runtime; Obsidia
   <img src=".github/assets/hero.gif" width="400" alt="Second brain build animation — wizard seeds your files and /ingest weaves provenance across your wiki." />
 </p>
 
-**[See it in the wild →](https://agamarora.com/lab/second-brain)**
+**[See it in the wild →](https://agamarora.com/lab/second-brain/)** &nbsp;·&nbsp; **[Read the story on Medium →](https://medium.com/@agam.arora11/your-ai-forgets-you-every-session-78ad24bf49be)**
 
 ---
 
@@ -171,6 +171,12 @@ If your user hasn't pasted the prompt yet, show them the "Get your own" block ab
 <!-- END:FOR_AGENTS -->
 
 ---
+
+## Further reading
+
+- **[PRFAQ + setup walkthrough](https://agamarora.com/lab/second-brain/)** — product-shaped version of this README with the full thesis, paste-prompt, and FAQ
+- **[Your AI forgets you every session — and that's the opportunity](https://medium.com/@agam.arora11/your-ai-forgets-you-every-session-78ad24bf49be)** — Medium launch post. Why PKM tools have the wrong shape; what "ingest your mess" actually feels like
+- **[Andrej Karpathy's LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)** — the pattern this template implements and extends
 
 ## Contributing
 
