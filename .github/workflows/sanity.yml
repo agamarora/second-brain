@@ -20,6 +20,12 @@ on:
 
 jobs:
   sanity:
+    # Sanity is for the template source, not downstream brains.
+    # Users who instantiate the template inherit this workflow but the
+    # checks (especially "publish-brain.yml ships disabled") would fail
+    # once they enable their own Pages publishing — intentionally.
+    # Gate to the template repo only.
+    if: github.repository == 'agamarora/second-brain'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -91,17 +97,18 @@ jobs:
           done
           echo "OK: .gitignore protects inbox/, raw/, archive/"
 
-      - name: publish-brain.yml ships disabled by default
+      - name: publish-brain.yml push-trigger stays disabled
         run: |
           set -e
-          # The `on:` trigger must be commented out so Pages stays private
-          # until the user explicitly enables it
-          if grep -E '^on:' .github/workflows/publish-brain.yml | grep -v '^#'; then
-            echo "FAIL: publish-brain.yml has an active 'on:' trigger"
-            echo "It must ship with the trigger commented out (private-by-default)"
+          # The `push:` trigger inside on: must stay commented so pushing to
+          # main does NOT auto-publish. workflow_dispatch: is allowed — it
+          # fires only on manual click from the Actions tab.
+          if grep -nE '^\s+push:' .github/workflows/publish-brain.yml | grep -vE ':\s*#'; then
+            echo "FAIL: publish-brain.yml has an active 'push:' trigger"
+            echo "The push: lines must stay commented so pushing does not auto-publish"
             exit 1
           fi
-          echo "OK: publish-brain.yml ships disabled"
+          echo "OK: publish-brain.yml push-trigger disabled (workflow_dispatch only)"
 
       - name: Rules files have H1 heading
         run: |

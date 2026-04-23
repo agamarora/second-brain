@@ -10,11 +10,15 @@
 
 name: publish-brain
 
-# To enable: uncomment the `on:` block below, commit, push.
-# on:
-#   push:
-#     branches: [main]
-#   workflow_dispatch:
+# To enable on every push to main: uncomment the `push:` block below, commit, push.
+# The `workflow_dispatch:` trigger is always present so GitHub treats the file
+# as valid (no trigger = 0s failure on every push), but it ONLY fires when you
+# manually click "Run workflow" in the Actions tab. Your brain stays local until
+# you either enable push: or dispatch it manually.
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
 
 permissions:
   contents: read
