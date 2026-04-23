@@ -25,6 +25,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: doctor.sh exits clean
+        env:
+          # GITHUB_TOKEN is auto-provided by GH Actions. Setting GH_TOKEN
+          # makes `gh auth status` recognize it and pass the auth check.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
           git config --global user.name "CI"
