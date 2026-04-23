@@ -12,7 +12,14 @@ Plain markdown. No app. No SaaS. No lock-in. Claude Code is the runtime; Obsidia
 
 ## Get your own
 
-Open Claude Code in an empty directory. Paste this one prompt:
+Three steps. Under 10 minutes.
+
+1. Open [Claude Code](https://docs.claude.com/en/docs/claude-code) in an empty directory.
+2. Paste the prompt below. (Click to expand.)
+3. Answer 5 questions, drop 3-5 real artifacts into `inbox/`, watch your brain populate.
+
+<details>
+<summary><b>Setup prompt — copy all</b> (~60 lines, includes 5 hard rules)</summary>
 
 <!-- BEGIN:PASTE_PROMPT -->
 
@@ -64,7 +71,9 @@ I'll answer your questions. Ask before anything destructive (rm, force-push, del
 
 <!-- END:PASTE_PROMPT -->
 
-Claude Code reads the repo's `CLAUDE.md`, becomes the setup wizard, and walks you through: 5 questions → foundational files seeded → your inbox artifacts ingested → `/orient` greets you with your populated brain. Under 10 minutes end-to-end. $0/month to run.
+</details>
+
+Claude Code reads the repo's `CLAUDE.md`, becomes the setup wizard, and walks you through: 5 questions → foundational files seeded → your inbox artifacts ingested → `/orient` greets you with your populated brain. $0/month to run.
 
 **No Claude Code?** See [`SETUP-GUIDE.md`](SETUP-GUIDE.md) for the same flow on ChatGPT / Claude Desktop / Cursor / Copilot / manual. ~15 minutes.
 
