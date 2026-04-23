@@ -6,6 +6,10 @@ Your second brain lives in git. Paste one prompt. Populated in under 10 minutes.
 
 Plain markdown. No app. No SaaS. No lock-in. Claude Code is the runtime; Obsidian is an optional reader; git is the sync. The brain compounds — every new source connects to what came before via 3-layer provenance, every decision chains to what it builds on, every wiki page enriches instead of overwriting.
 
+<p align="center">
+  <img src=".github/assets/hero.gif" width="480" alt="Second brain build animation — wizard seeds your files and /ingest weaves provenance across your wiki." />
+</p>
+
 **[See it in the wild →](https://agamarora.com/lab/second-brain)**
 
 ---
@@ -169,9 +173,9 @@ If your user hasn't pasted the prompt yet, show them the "Get your own" block ab
 
 ## Contributing
 
-Issues and PRs welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) if present — otherwise, open an issue first and describe what you want to change.
+Issues and PRs welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first — it covers scope boundaries (role-agnostic, no SaaS, no RAG), dev setup, and style conventions. Issue templates are wired for bug reports, feature requests, and setup help.
 
-The template is MIT licensed. Fork freely. If you build something on top, I'd love to see it — tag [@agamarora](https://github.com/agamarora).
+The template is MIT licensed. Fork freely. If you build something on top, I'd love to see it — tag [@agamarora](https://github.com/agamarora). See [CHANGELOG.md](CHANGELOG.md) for what's shipped in v0.1 and what's planned for v0.2.
 
 ## License
 
