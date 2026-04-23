@@ -64,7 +64,7 @@ With `--fix`, auto-append missing rows using the page's frontmatter name + creat
 
 ### 6. Global `wiki/index.md` completeness
 
-Read `wiki/index.md`. If it has a page catalog section (added in v0.2), verify every page under `wiki/` appears. Flag missing entries. With `--fix`, append.
+Read `wiki/index.md`. Verify every page under `wiki/` appears in its `## Page catalog` section. Flag missing entries. With `--fix`, append the missing rows using each page's frontmatter (`kind`, `created`) and first body paragraph (one-line summary).
 
 ## Output format
 
@@ -136,6 +136,6 @@ Auto-fixed: F
 
 ## Relationship to other skills
 
-- `/deep-sync` calls `/lint` internally (v0.2+) before the retro step
+- `/deep-sync` calls `/lint` internally before the retro step
 - `/new-page` should fail-safe into the folder index, so `index hygiene` findings should be rare
 - `/ingest` compounding gate already prevents the worst orphan-creation cases

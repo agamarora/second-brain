@@ -68,7 +68,7 @@ ORDER OF OPERATIONS:
    - My brain is set up and working locally
    - `inbox/` and `raw/` are gitignored — nothing private has been tracked yet
    - To sync to GitHub: `git add -A && git commit -m "initial brain setup" && git push`. Confirm with me first.
-   - To publish a read-only view at `<username>.github.io/<repo>/`: uncomment the `on:` trigger in `.github/workflows/publish-brain.yml`.
+   - To auto-publish a read-only view at `<username>.github.io/<repo>/` on every push: open `.github/workflows/publish-brain.yml` and uncomment the two lines under `on:` that start with `# push:` / `#   branches: [main]`. Or trigger it once manually from the repo's Actions tab (`workflow_dispatch`) without enabling auto-publish.
 
 I'll answer your questions. Ask before anything destructive (rm, force-push, deleting branches). I have `gh`, `git`, and Claude Code installed.
 ```

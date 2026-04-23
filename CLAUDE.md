@@ -62,22 +62,35 @@ Ask: "Drop 3-5 real artifacts into the `inbox/` folder — a LinkedIn PDF export
 
 **Wait for user confirmation before proceeding.** Do not fabricate artifacts.
 
-### Seeding — write these files in order
+### Seeding — populate or create these files in order
 
-1. `memory/MEMORY.md` — short compaction anchor, see template below
-2. `journal/NOW.md` — this week's focus with the 3 tracks and 1 decision
-3. `journal/TODO.md` — empty shell with section headers per track
-4. `journal/DONE.md` — empty shell
-5. `journal/BACKLOG.md` — empty shell
-6. `wiki/index.md` — wiki root
-7. `wiki/concepts/index.md` — folder index
-8. `wiki/people/index.md` — folder index
+The template ships with skeleton files that already have structure (table headers, `## Page catalog` bootstraps, placeholder text, stub content). The wizard **replaces placeholder content** and **preserves existing structure**. Do NOT blanket-overwrite files that already exist on disk — read what's there first.
+
+**Replace placeholder content (file ships, wizard writes real content):**
+
+1. `memory/MEMORY.md` — overwrite the placeholder with the full template below
+2. `journal/NOW.md` — overwrite the placeholder with this week's focus (3 tracks + 1 decision)
+3. `journal/TODO.md` — overwrite placeholder with section headers per track
+4. `journal/DONE.md` — overwrite placeholder with the stub "Accomplishment ledger..."
+5. `journal/BACKLOG.md` — overwrite placeholder with the stub
+
+**Preserve existing structure (file ships with critical scaffolding — only add, never overwrite):**
+
+6. `wiki/index.md` — keep the `## Page catalog` section intact. `/ingest` and `/new-page` maintain it. Do NOT rewrite this file.
+7. `wiki/concepts/index.md` — keep the table header. Rows get added as concept pages are created.
+8. `wiki/people/index.md` — keep the table header. Rows get added as people pages are created.
+12. `decisions/index.md` — keep the table header. Rows get added per decision file.
+
+**Create fresh (file does NOT ship, wizard creates):**
+
 9. `wiki/concepts/strategy.md` — stub with user's framing of what the brain is for
-10. `wiki/people/me.md` — stub (will be enriched by ingest)
-11. `wiki/people/<person-slug>.md` — one stub per named person from Q3 (5 files)
-12. `decisions/index.md` — decisions folder index with table header
+10. `wiki/people/me.md` — stub (will be enriched by ingest with first-person summary)
+11. `wiki/people/<person-slug>.md` — one stub per named person from Q3 (3-5 files; count matches what the user gave)
 13. `decisions/<YYYY-MM-DD>-<first-decision-slug>.md` — first decision file using the Q4 decision as content; `status: open` if not resolved yet
-14. `log.md` — chronological spine with wizard-run event
+
+**Append (file ships seeded, wizard adds a row):**
+
+14. `log.md` — append a `## [YYYY-MM-DD] wizard run` event. Do not overwrite the existing template-instantiation row.
 
 ### Ingest — the whoa moment
 
@@ -98,7 +111,7 @@ Say to the user:
 >
 > During work, just say "capture this" or "log this decision" — I'll write files immediately. At session end, run `/quick-sync`. Weekly, run `/deep-sync`.
 >
-> Your brain is private by default. `inbox/` and `raw/` are gitignored. To publish a read-only view at `<username>.github.io/<repo>/`, uncomment the `on:` trigger in `.github/workflows/publish-brain.yml`.
+> Your brain is private by default. `inbox/` and `raw/` are gitignored. The `publish-brain.yml` workflow ships in manual-dispatch mode — it only runs when you click "Run workflow" in the Actions tab. To auto-publish on every push, uncomment the `push:` block inside `on:` (two lines that start with `# push:` and `#   branches: [main]`). Output lands at `<username>.github.io/<repo>/`.
 
 ---
 
@@ -201,7 +214,8 @@ scripts/
   doctor.sh               ← preflight checks
 
 .github/workflows/
-  publish-brain.yml       ← GitHub Pages export (disabled by default)
+  publish-brain.yml       ← GitHub Pages export (manual-dispatch by default)
+  sanity.yml              ← template-repo CI (gated to agamarora/second-brain)
 
 .claude/skills/
   orient/, help/, capture/, ingest/, query/, lint/,
