@@ -1,0 +1,29 @@
+# User artifacts — never committed by default
+# Drop your personal files into inbox/ or raw/; git will not track them.
+# To track specific files, force-add with `git add -f path`.
+inbox/**
+!inbox/.gitkeep
+raw/**
+!raw/.gitkeep
+archive/**
+!archive/.gitkeep
+
+# Secrets
+.env
+.env.local
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.obsidian/workspace*.json
+.obsidian/cache
+
+# Build output
+docs/
+.jekyll-cache/
+.sass-cache/
+
+# Node (if any user adds tooling)
+node_modules/

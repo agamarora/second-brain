@@ -1,0 +1,81 @@
+# Publish your brain to GitHub Pages.
+#
+# PRIVATE BY DEFAULT: the `on:` trigger below is commented out. Your brain
+# stays local until you uncomment it and push. See README for details.
+#
+# When enabled, this workflow rsyncs wiki/ + journal/NOW.md + decisions/
+# into docs/ on every push to main, then deploys docs/ to GitHub Pages.
+# inbox/, raw/, and archive/ are never published. Files with frontmatter
+# `private: true` are also excluded.
+
+name: publish-brain
+
+# To enable: uncomment the `on:` block below, commit, push.
+# on:
+#   push:
+#     branches: [main]
+#   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build docs/ from brain
+        run: |
+          set -e
+          rm -rf docs
+          mkdir -p docs
+          # Sync public areas only
+          rsync -a --delete wiki/ docs/wiki/
+          cp -r decisions docs/decisions
+          mkdir -p docs/journal
+          [ -f journal/NOW.md ] && cp journal/NOW.md docs/journal/NOW.md || true
+          # Scrub any file flagged `private: true` in frontmatter
+          find docs -type f -name '*.md' -print0 | while IFS= read -r -d '' f; do
+            if head -20 "$f" | grep -qE '^private:[[:space:]]*true'; then
+              rm "$f"
+            fi
+          done
+          # Minimal Jekyll config — default minima theme, no plugins
+          cat > docs/_config.yml <<EOF
+          title: Second Brain
+          description: Published snapshot of a living second brain.
+          theme: minima
+          markdown: kramdown
+          EOF
+          # Index page at docs/index.md — link into wiki
+          cat > docs/index.md <<EOF
+          # Second Brain
+
+          This is a published snapshot of a second brain.
+
+          - [Wiki](wiki/)
+          - [Now](journal/NOW.html)
+          - [Decisions](decisions/)
+
+          Built from plain markdown. Powered by the
+          [second-brain](https://github.com/agamarora/second-brain) template.
+          EOF
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
