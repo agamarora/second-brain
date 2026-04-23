@@ -7,7 +7,7 @@ Your second brain lives in git. Paste one prompt. Populated in under 10 minutes.
 Plain markdown. No app. No SaaS. No lock-in. Claude Code is the runtime; Obsidian is an optional reader; git is the sync. The brain compounds — every new source connects to what came before via 3-layer provenance, every decision chains to what it builds on, every wiki page enriches instead of overwriting.
 
 <p align="center">
-  <img src=".github/assets/hero.gif" width="480" alt="Second brain build animation — wizard seeds your files and /ingest weaves provenance across your wiki." />
+  <img src=".github/assets/hero.gif" width="400" alt="Second brain build animation — wizard seeds your files and /ingest weaves provenance across your wiki." />
 </p>
 
 **[See it in the wild →](https://agamarora.com/lab/second-brain)**
